@@ -1,13 +1,14 @@
-import { useState } from 'react'
-import styles from '@/src/App.module.css'
+import styles from './App.module.css'
+import { Sidebar } from '../components/Sidebar'
+import { Mainpage } from '../components/Mainpage'
+
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <h1 className={styles.title}>日本法律ビューアー</h1>
-    </>
+    <div className={styles.page}>
+      <Sidebar />
+      <Mainpage />
+    </div>
   )
 }
 
