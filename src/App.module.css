@@ -1,8 +1,17 @@
 .page {
   display: flex;
+  flex-direction: column;
   align-items: stretch;
-  min-height: calc(100svh - 60px);
+  min-height: 100svh;
 }
 
+.content {
+  display: flex;
+  align-items: stretch;
+  flex: 1;
+  min-width: 0;
+}
 
-
+.spacer {
+  height: 60px;
+}
