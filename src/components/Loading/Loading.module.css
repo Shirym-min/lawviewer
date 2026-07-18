@@ -1,0 +1,55 @@
+.loading {
+  position: fixed;
+  left: 24px;
+  bottom: 24px;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 12px 18px;
+
+  background: rgba(30, 30, 30, 0.9);
+  color: white;
+  border-radius: 999px;
+
+  font-size: 14px;
+
+  opacity: 0;
+  transform: translateY(30px);
+
+  pointer-events: none;
+
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.loading.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+.spinner {
+  width: 16px;
+  height: 16px;
+
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: white;
+
+  border-radius: 50%;
+
+  animation: spin 0.8s linear infinite;
+}
+
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
