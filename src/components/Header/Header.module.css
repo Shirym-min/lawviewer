@@ -1,5 +1,5 @@
 .title {
-  font-size: 32px;
+  font-size:clamp(16px, 2.5vw, 32px);
   color: inherit;
   margin-bottom: 24px;
   font-weight: 700;

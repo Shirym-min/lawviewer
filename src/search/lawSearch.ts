@@ -93,12 +93,6 @@ export function searchLaw(
     );
   }
 
-  if (options?.law_type) {
-    results = results.filter(
-      (law) =>
-        law.law_type === options.law_type
-    );
-  }
   return results;
 }
 

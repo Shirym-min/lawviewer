@@ -64,8 +64,11 @@ export default function SearchBar() {
               <span className={styles.filterText}>{isFilterOpen ? "閉じる" : "フィルター"}</span>
             </button>
           </div>
-          
+          <section className={styles.repealStatus} data-open={isFilterOpen}>
+            <span className={styles.sectionText}>状態</span>
+        </section>
         </div>
+        
       </div>
 
     </div>

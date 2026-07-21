@@ -65,7 +65,7 @@ field = {
   "updated_at" : ("current_revision_info", "amendment_enforcement_date"),
   "law_title" : ("current_revision_info", "law_title"),
   "law_title_kana" : ("current_revision_info", "law_title_kana"),
-  "status" : ("current_revision_info", "current_revision_status"),
+  "status" : ("current_revision_info", "repeal_status"),
 }
 
 with output_path.open("w", encoding="utf-8") as file:

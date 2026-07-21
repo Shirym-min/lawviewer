@@ -27,7 +27,7 @@
   cursor: pointer;
   font-size: 13px;
   color: white;
-  width: 100px;
+  width: 70px;
 }
 
 .indicator {
@@ -85,7 +85,7 @@
 .inputWrapper {
   flex: 0 0 auto;
   position: relative;
-  width: 500px;
+  width: 30vw;
   height: 40px;
   transition: width 500ms var(--ease-spring);
 }
@@ -155,7 +155,7 @@
 }
 
 .filterSlot {
-  flex: 0 0 150px;
+  flex: 0 0 100px;
   position: relative;
   height: 40px;
   margin-left: 10px;
@@ -166,9 +166,9 @@
   text-align: left;
   position: absolute;
   top: 0;
-  left: 0;
+  right: 0;
   box-sizing: border-box;
-  width: 150px;
+  width: 100px;
   height: 40px;
   overflow: hidden;
   border: 1px solid transparent;
@@ -185,7 +185,7 @@
 
 .filter[data-open="true"] {
   width: 300px;
-  height: 300px;
+  height: 200px;
   box-shadow: 0 12px 32px rgb(0 0 0 / 28%);
 }
 
@@ -195,13 +195,14 @@
   justify-content: center;
   appearance: none;
   box-sizing: border-box;
-  width: 150px;
+  margin-left: auto;
+  width: 100px;
   height: 40px;
-  padding: 0 20px;
+  padding: 0 10px;
   border-radius: 14px;
   border: none;
   color: black;
-  font-size: 15px;
+  font-size: 13px;
   cursor: pointer;
   background-color: transparent;
 }
@@ -218,4 +219,11 @@
 
 .filterText {
   font-weight: bold;
+}
+
+.sectionText {
+  font-weight: bold;
+  margin: 20px 10px;
+  margin-top: 30px;
+  color: black;
 }
