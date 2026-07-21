@@ -2,17 +2,10 @@ import MiniSearch from "minisearch";
 import type { LawIndex, LawIndexResponse } from "../types/law";
 
 
-// MiniSearchインスタンス
+// MiniSearch
 let miniSearch: MiniSearch<LawIndex> | null = null;
-
-
-// 初期化済みか確認
 let initialized = false;
 
-
-/**
- * 検索エンジンを初期化する
- */
 export async function initializeLawSearch() {
   if (initialized) {
     return;
@@ -32,11 +25,9 @@ export async function initializeLawSearch() {
 
 
   miniSearch = new MiniSearch<LawIndex>({
-    // 検索対象
     fields: [
       "search_text"
     ],
-    // 検索結果として保持するデータ
     storeFields: [
       "id",
       "law_type",
@@ -65,9 +56,6 @@ export async function initializeLawSearch() {
 }
 
 
-/**
- * 検索条件
- */
 export type LawSearchOptions = {
   status?: string;
   category?: string;
@@ -75,9 +63,6 @@ export type LawSearchOptions = {
 };
 
 
-/**
- * 法令検索
- */
 export function searchLaw(
   query: string,
   options?: LawSearchOptions

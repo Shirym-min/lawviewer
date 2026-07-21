@@ -15,6 +15,7 @@
   background-color: #16171d;
   padding: 0 20px;
   position: fixed;
+  z-index: 100;
 }
 
 .description {
