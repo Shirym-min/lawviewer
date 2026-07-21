@@ -57,7 +57,7 @@ export async function initializeLawSearch() {
 
 
 export type LawSearchOptions = {
-  status?: string;
+  status?: string[];
   category?: string;
   law_type?: string;
 };
@@ -82,7 +82,7 @@ export function searchLaw(
   if (options?.status) {
     results = results.filter(
       (law) =>
-        law.status === options.status
+        options.status?.includes(law.status)
     );
   }
 
@@ -92,7 +92,7 @@ export function searchLaw(
         law.category === options.category
     );
   }
-
+  console.log("searched", query, options, results.length)
   return results;
 }
 

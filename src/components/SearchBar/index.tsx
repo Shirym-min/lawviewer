@@ -61,7 +61,7 @@ export default function SearchBar() {
     const query = formData.get("q");
 
     const params = new URLSearchParams();
-
+    let statuses = selectedStatuses;
     if (typeof type === "string") {
       params.set("type", type);
     }
@@ -70,9 +70,20 @@ export default function SearchBar() {
       params.set("q", query.trim());
     }
 
-    selectedStatuses.forEach((status) => {
+    params.set("page", "1");
+
+    if (selectedStatuses.length === 0) {
+      statuses = ["None"];
+      setCurrentStatuses(["None"]);
+      setSelectedStatuses(["None"]);
+    }
+
+    statuses.forEach((status) => {
       params.append("status", status);
     });
+
+
+  
 
     navigate(`/search?${params.toString()}`);
   };
