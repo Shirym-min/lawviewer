@@ -39,7 +39,7 @@ export function Search() {
   return (
     <main className={styles.main}>
       <div className={styles.toolbar}>
-        <p className={styles.summary}>1,912件中 6件を表示</p>
+        <p className={styles.summary}>{totalResults}件中 {pageResults.length}件を表示・{page}ページ目</p>
         <p className={styles.sort}>並び替え: 更新日</p>
       </div>
       <ul className={styles.list}>
@@ -50,7 +50,11 @@ export function Search() {
               <p className={styles.meta}>{law.law_num}・{law.category}</p>
             </div>
             <div className={styles.statusGroup}>
-              <span className={styles.updated}>最終改正・{law.updated_at}</span>
+              <div className={styles.details}>
+                <span className={styles.updated}>公布日・{law.promulgation_date}</span>
+                <br/>
+                <span className={styles.updated}>最終改正・{law.updated_at}</span>
+              </div>
               <span className={styles.badge + (law.status === "None" ? "" : " " + styles.inactivated)}>{badgeMap[law.status]}</span>
             </div>
           </li>

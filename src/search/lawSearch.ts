@@ -5,54 +5,64 @@ import type { LawIndex, LawIndexResponse } from "../types/law";
 // MiniSearch
 let miniSearch: MiniSearch<LawIndex> | null = null;
 let initialized = false;
+let initializationPromise: Promise<void> | null = null;
 
 export async function initializeLawSearch() {
   if (initialized) {
     return;
   }
 
-  const response = await fetch("/index_data.json");
-
-  if (!response.ok) {
-    throw new Error(
-      `Failed to fetch index_data.json: ${response.status}`
-    );
+  if (initializationPromise) {
+    return initializationPromise;
   }
 
+  initializationPromise = (async () => {
+    const response = await fetch("/index_data.json");
 
-  const data: LawIndexResponse =
-    await response.json();
-
-
-  miniSearch = new MiniSearch<LawIndex>({
-    fields: [
-      "search_text"
-    ],
-    storeFields: [
-      "id",
-      "law_type",
-      "law_num",
-      "promulgation_date",
-      "category",
-      "updated_at",
-      "law_title",
-      "law_title_kana",
-      "status"
-    ],
-
-    searchOptions: {
-      prefix: true,
-      // 入力ミス許容度
-      fuzzy: 0.15
+    if (!response.ok) {
+      throw new Error(
+        `Failed to fetch index_data.json: ${response.status}`
+      );
     }
-  });
 
+    const data: LawIndexResponse = await response.json();
 
-  miniSearch.addAll(data.index);
+    miniSearch = new MiniSearch<LawIndex>({
+      fields: [
+        "search_text"
+      ],
+      storeFields: [
+        "id",
+        "law_type",
+        "law_num",
+        "promulgation_date",
+        "category",
+        "updated_at",
+        "law_title",
+        "law_title_kana",
+        "status"
+      ],
 
-  initialized = true;
+      searchOptions: {
+        prefix: true,
+        // 入力ミス許容度
+        fuzzy: 0.15
+      }
+    });
 
-  console.log("Created Index")
+    miniSearch.addAll(data.index);
+
+    initialized = true;
+
+    console.log("Created Index")
+  })();
+
+  try {
+    await initializationPromise;
+  } catch (error) {
+    initializationPromise = null;
+    throw error;
+  }
 }
 
 

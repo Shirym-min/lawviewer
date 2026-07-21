@@ -4,7 +4,7 @@ import { Mainpage } from './pages/Mainpage'
 import { Search } from './pages/Search'
 import { Header } from './components/Header'
 import { useEffect, useState } from 'react'
-import { initializeLawSearch,searchLaw } from './search/lawSearch'
+import { initializeLawSearch } from './search/lawSearch'
 import Loading from './components/Loading/Loading'
 import { Routes, Route } from "react-router-dom"
 
@@ -32,10 +32,12 @@ function App() {
       <div className={styles.spacer} />
       <div className={styles.content}>
         <Sidebar />
-        <Routes>
-          <Route path="/" element={<Mainpage />} />
-          <Route path="/search" element={<Search />} />
-        </Routes>
+        {ready && (
+          <Routes>
+            <Route path="/" element={<Mainpage />} />
+            <Route path="/search" element={<Search />} />
+          </Routes>
+        )}
         
       </div>
       <Loading visible={!ready && !error} />
