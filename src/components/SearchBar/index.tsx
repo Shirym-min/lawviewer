@@ -2,10 +2,21 @@ import styles from './SearchBar.module.css'
 import { useState } from 'react'
 import { useSearchParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import { IoClose } from "react-icons/io5";
 import type { SubmitEventHandler } from "react";
+import { type ChangeEvent } from "react";
 
 type search = "name" | "content"
+
+const statusOptions = [
+  { value: "None", label: "現行" },
+  { value: "Repeal", label: "廃止" },
+  { value: "Expire", label: "期限切れ" },
+  { value: "Suspend", label: "失効" },
+  { value: "LossOfEffectiveness", label: "効力喪失" },
+] as const;
+
+type Status = (typeof statusOptions)[number]["value"];
+
 
 export default function SearchBar() {
   const defaultSearchType = (useSearchParams()[0].get("type") as search) || "name";
@@ -13,6 +24,32 @@ export default function SearchBar() {
   const defaultQuery = useSearchParams()[0].get("q") || "";
 
   const [isFilterOpen, setIsFilterOpen] = useState(false);
+
+  const defaultStatuses = useSearchParams()[0].getAll("status") as Status[];
+  if (defaultStatuses.length === 0) {
+    defaultStatuses.push("None");
+  }
+  const [selectedStatuses, setSelectedStatuses] = useState<Status[]>(defaultStatuses);
+  const [currentStatuses, setCurrentStatuses] = useState<Status[]>(defaultStatuses);
+  const handleStatusChange = (
+    event: ChangeEvent<HTMLInputElement>,
+  ) => {
+    const statusName = event.target.value as Status;
+    const isChecked = event.target.checked;
+
+    setCurrentStatuses((previous) => {
+      if (isChecked) {
+        return [...previous, statusName];
+      }
+      return previous.filter((status) => status !== statusName);
+    })
+
+  }
+
+  const handleFilterApply = () => {
+    setSelectedStatuses(currentStatuses);
+    setIsFilterOpen(false);
+  }
 
   const navigate = useNavigate();
   const handleSubmit: SubmitEventHandler<HTMLFormElement> = (event) => {
@@ -32,6 +69,10 @@ export default function SearchBar() {
     if (typeof query === "string" && query.trim() !== "") {
       params.set("q", query.trim());
     }
+
+    selectedStatuses.forEach((status) => {
+      params.append("status", status);
+    });
 
     navigate(`/search?${params.toString()}`);
   };
@@ -60,15 +101,37 @@ export default function SearchBar() {
       <div className={styles.filterSlot}>
         <div className={styles.filter} data-open={isFilterOpen}>
           <div className={styles.filterHeader}>
-            <button className={styles.filterButton} type="button" aria-expanded={isFilterOpen} onClick={() => setIsFilterOpen(!isFilterOpen)}>
-              <span className={styles.filterText}>{isFilterOpen ? "閉じる" : "フィルター"}</span>
+            {isFilterOpen ? 
+            <button className={styles.filterButton} type="button" aria-expanded={isFilterOpen} onClick={() => handleFilterApply()}>
+              <span className={styles.filterText}>適用</span>
             </button>
+             : 
+            <button className={styles.filterButton} type="button" aria-expanded={isFilterOpen} onClick={() => setIsFilterOpen(!isFilterOpen)}>
+              <span className={styles.filterText}>フィルター</span>
+            </button>
+            }
+
           </div>
           <section className={styles.repealStatus} data-open={isFilterOpen}>
             <span className={styles.sectionText}>状態</span>
-        </section>
+            <div className={styles.checkboxGroup}>
+              {statusOptions.map((option) => (
+                <label key={option.value} className={styles.checkboxLabel}>
+                  <input
+                    type="checkbox"
+                    name="status"
+                    className={styles.checkboxInput}
+                    value={option.value}
+                    checked={currentStatuses.includes(option.value)}
+                    onChange={handleStatusChange}
+                  />
+                  <span className={styles.checkboxText}>{option.label}</span>
+                </label>
+              ))}
+            </div>
+          </section>
         </div>
-        
+
       </div>
 
     </div>
