@@ -17,7 +17,7 @@ export async function initializeLawSearch() {
   }
 
   initializationPromise = (async () => {
-    const response = await fetch("/index_data.json");
+    const response = await fetch(`${import.meta.env.BASE_URL}index_data.json`);
 
     if (!response.ok) {
       throw new Error(
