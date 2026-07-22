@@ -46,7 +46,7 @@ export async function initializeLawSearch() {
       searchOptions: {
         prefix: true,
         // 入力ミス許容度
-        fuzzy: 0.15
+        fuzzy: 0.1
       }
     });
 

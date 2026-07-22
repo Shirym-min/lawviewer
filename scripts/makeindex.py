@@ -36,10 +36,10 @@ def sudachi_tokens(text: str):
     return tokens
 
 
-def create_search_text(title, title_kana, category=None):
+def create_search_text(title, title_kana, abbrev, category=None):
     values = []
-
-    for text in [title, title_kana, category]:
+    abbrevs = abbrev.split(",") if abbrev else []
+    for text in [title, title_kana, category, *abbrevs]:
         if text:
             values.append(text)
             values.extend(sudachi_tokens(text))
@@ -66,6 +66,7 @@ field = {
   "law_title" : ("current_revision_info", "law_title"),
   "law_title_kana" : ("current_revision_info", "law_title_kana"),
   "status" : ("current_revision_info", "repeal_status"),
+  "abbrev" : ("current_revision_info", "abbrev")
 }
 
 with output_path.open("w", encoding="utf-8") as file:
@@ -79,7 +80,7 @@ for i in range(data["count"]):
         for output_key, path in field.items()
     }
     result["index_id"] = i
-    result["search_text"] = create_search_text(result["law_title"], result["law_title_kana"], result["category"])
+    result["search_text"] = create_search_text(result["law_title"], result["law_title_kana"], result["abbrev"], result["category"])
     laws_index["index"].append(result)
 
 output_path = Path("public/index_data.json")

@@ -5,21 +5,34 @@
 	background: #f7f2e7;
 }
 
-.toolbar {
+.summarybox {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 	gap: 16px;
 	padding: 18px 24px;
+  padding-top: 0;
 	border-bottom: 1px solid #e3dccb;
 	background: #faf7ef;
 	color: #9a9282;
 	font-size: 15px;
 }
 
+.toolbar {
+  background-color: #faf7ef;
+}
+
 .summary,
 .sort {
 	margin: 0;
+}
+
+.resultTitle {
+  background: #faf7ef;
+  font-family: var(--mincho);
+  text-align: left;
+  font-size: 33px;
+  padding: 18px 24px;
 }
 
 .sort {
@@ -97,4 +110,51 @@
 	font-size: 13px;
 	font-weight: 700;
 	background: #fffdf8;
+}
+
+.pagebuttons {
+  display:flex;
+  justify-content:center;
+  gap: 20px;
+  margin: 20px 0;
+
+}
+
+.pagebutton {
+  width: 40px;
+  background-color:#f7f2e7;
+  cursor: pointer;
+  border: 1.4px solid #818181;
+  font-weight: bold;
+  border-radius: 6px;
+}
+
+.currentPagebutton {
+  width: 40px;
+  background-color:#16171d;
+  cursor: pointer;
+  border: 1.4px solid #818181;
+  font-weight: bold;
+  color: white;
+  border-radius: 6px;
+}
+
+.hidePagebutton {
+  
+  width: 42.8px;
+  background-color:#f7f2e7;
+}
+.pagebuttonText {
+  font-size: 20px;
+  font-weight: bold;
+
+}
+
+.arrowPagebutton {
+  width: 40px;
+  background-color:#16171d;
+  cursor: pointer;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
 }
