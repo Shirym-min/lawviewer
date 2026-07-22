@@ -23,7 +23,7 @@ export function Search() {
   const statuses = searchParams[0].getAll("status").join(",") || "None";
   const page = Number(searchParams[0].get("page")) || 1;
   const [results, setResults] = useState<ReturnType<typeof searchLaw>>([]);
-  const [loading, setLoading] = useState(false);
+
   const [totalResults, setTotalResults] = useState(0);
   const pagemap: number[] = Array.from(
     { length: 5 },
@@ -34,11 +34,9 @@ export function Search() {
   )
 
   useEffect(() => {
-    setLoading(true);
     const data = type === "name" ? searchLaw(query, { status: statuses.split(",") }) : [];
     setResults(data);
     setTotalResults(data.length);
-    setLoading(false);
   }, [query, type, statuses]);
 
   const pageResults = results.slice((page - 1) * pageSize, page * pageSize);
