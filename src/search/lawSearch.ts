@@ -40,7 +40,8 @@ export async function initializeLawSearch() {
         "updated_at",
         "law_title",
         "law_title_kana",
-        "status"
+        "status",
+        "abbrev"
       ],
 
       searchOptions: {
